@@ -1,0 +1,21 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px; /* Erhöhe das Padding für mehr Abstand */
+    text-align: left;
+    vertical-align: top; /* Top-align für Zelleninhalt */
+    border: 1px solid #ddd; /* Optional: Rahmen um Zellen */
+}
+
+th {
+    background-color: #f2f2f2; /* Optional: Hintergrundfarbe für Kopfzeilen */
+}
+
+h3 {
+    margin-top: 30px;  /* Erhöhe den Abstand nach oben */
+    margin-bottom: 10px; /* Optional: Erhöhe den Abstand nach unten */
+}
+
