@@ -1,5 +1,5 @@
 #############################################################################
-# Copyright (C) 2024 CrowdWare
+# Copyright (C) 2025 CrowdWare
 #
 # This file is part of NoCodeService.
 #
@@ -21,151 +21,77 @@
 from flask import Flask, request, jsonify
 import stripe
 import json
-import uuid
+import os
 import smtplib
-from nocode_keys import NOCODE_DB_USER
+import uuid
+from email.mime.text import MIMEText
+from Crypto.Cipher import AES
+import binascii
+import mysql.connector
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from nocode_keys import NOCODE_DB_PWD
+from nocode_keys import NOCODE_DB_USER
 from nocode_keys import NOCODE_DATABASE
-from nocode_keys import WEB_HOOK_SECRET
-from nocode_keys import STRIPE_API_KEY
+from nocode_keys import SECRET_KEY
+from nocode_keys import GMAIL_PWD
 from nocode_keys import NOCODE_PRO_LINK
 from nocode_keys import NOCODE_STARTER_LINK
-from mysql.connector import connect
-from mysql.connector.errors import IntegrityError
-from email.mime.text import MIMEText
-
+from nocode_keys import WEB_HOOK_SECRET
+from nocode_keys import STRIPE_API_KEY
+from nocode_keys import GMAIL_ADDRESS
 
 
 app = Flask(__name__)
 stripe.api_key = STRIPE_API_KEY
 
-# TODO change site id
-@app.after_request
-def add_tracking_code(response):
-    if response.content_type == 'text/html; charset=utf-8':
-        tracking_code = '<script async defer data-website-id="YOUR_WEBSITE_ID" src="YOUR_UMAMI_SCRIPT_URL"></script>'
-        response.set_data(response.get_data().replace(b'</head>', tracking_code.encode('utf-8') + b'</head>'))
-    return response
+db_connection = mysql.connector.connect(
+    host="artanidos.mysql.pythonanywhere-services.com",
+    user=NOCODE_DB_USER,
+    password=NOCODE_DB_PWD,
+    database=NOCODE_DATABASE
+)
+cursor = db_connection.cursor()
 
-def dbConnect():
-    db = connect(unix_socket="/var/run/mysqld/mysqld.sock",
-                 user=NOCODE_DB_USER,
-                 password=NOCODE_DB_PWD,
-                 database=NOCODE_DATABASE)
-    return db
-
-@app.route('/check_license', methods=['GET'])
-def check_license():
-    license_key = request.args.get('licenseKey')
-    if not license_key:
-        return jsonify({"error": "No license key provided"}), 400
-    
-    # Teile den Lizenzschlüssel in seine Komponenten auf
-    parts = license_key.split('|')
-    if len(parts) != 3:
-        return jsonify({"error": "Invalid license key format"}), 400
-
-    pkey, license_type, expiry_date = parts
-    
-    # Verbinde zur Datenbank und überprüfe, ob die pkey existiert
-    conn = dbConnect()
-    curs = conn.cursor(dictionary=True)
-    
-    curs.execute("SELECT * FROM account WHERE uuid = %s", (pkey,))
-    account = curs.fetchone()
-    
-    if not account:
-        return jsonify({"isValid": False, "licenseType": "", "daysRemaining": 0}), 403
-
-    # Überprüfe, ob die Lizenzinformationen mit der Datenbank übereinstimmen
-    if account['license'] != license_type:
-        return jsonify({"isValid": False, "licenseType": "", "daysRemaining": 0}), 403
-
-    # Überprüfe das Ablaufdatum
-    expiry = datetime.strptime(expiry_date, '%Y-%m-%d')
-    days_remaining = (expiry - datetime.now()).days
-    
-    if days_remaining < 0:
-        return jsonify({"isValid": False, "licenseType": license_type, "daysRemaining": 0}), 403
-    
-    return jsonify({"isValid": True, "licenseType": license_type, "daysRemaining": days_remaining}), 200
-
-
-def generate_license_key(license, uuid):
-    # Erstelle das Ablaufdatum in 3 Monaten
-    expiry_date = (datetime.now() + timedelta(days=90)).strftime('%Y-%m-%d')
-    
-    # Erstelle die Zeichenkette, die verschlüsselt wird
-    license_info = f"{license}|{expiry_date}|{uuid}"
-    
-    # Erstelle eine Instanz des Paddings
-    padder = padding.PKCS7(algorithms.AES.block_size).padder()
-    padded_data = padder.update(license_info.encode()) + padder.finalize()
-    
-    # Erstelle einen IV (Initialisierungsvektor)
-    iv = os.urandom(16)
-
-    # Hier nehmen wir an, dass du einen festen Schlüssel für die Verschlüsselung hast.
-    # In der Praxis sollte dies ein sicherer, zufällig generierter und gut bewachter Schlüssel sein.
-    encryption_key = b'your-very-secret-key-here'  # 16, 24, or 32 byte long for AES-128, AES-192, or AES-256 respectively
-    
-    # Erstelle den Cipher für AES in CBC Modus
-    cipher = Cipher(algorithms.AES(encryption_key), modes.CBC(iv), backend=default_backend())
-    encryptor = cipher.encryptor()
-    
-    # Verschlüssele die gepaddete Nachricht
-    ct = encryptor.update(padded_data) + encryptor.finalize()
-    
-    # Base64 kodiere den Ciphertext und den IV für einfaches Handling
-    return base64.b64encode(iv + ct).decode()
-
-
-def registerUser(uuid, name, email, locale, license):
-    
-    conn = None
+def save_account_record(email, publisher, locale, license):
+    """Function to save account details in MySQL database"""
     try:
-        conn = dbConnect()
-        curs = conn.cursor(dictionary=True)
-        
-        # Überprüfe, ob UUID bereits existiert
-        query = "SELECT COUNT(*) AS count FROM account WHERE uuid = %s"
-        curs.execute(query, (user_uuid,))
-        row = curs.fetchone()
-        count = row['count']
-
-        if count == 1:
-            query = "UPDATE account SET name = %s, email = %s, locale = %s, license = %s, date = NOW() WHERE uuid = %s"
-            params = (name, email, locale, license, user_uuid)
-        else:
-            query = "INSERT INTO account (uuid, name, email, locale, license, date) VALUES (%s, %s, %s, %s, %s, NOW())"
-            params = (user_uuid, name, email, locale, license)
-        
-        curs.execute(query, params)
-        conn.commit()
-        return True
-    except IntegrityError as error:
-        print(f"Database Integrity Error: {error}")
-        return False
-    except Exception as error:
-        print(f"An error occurred: {error}")
-        return False
+        uuid_value = str(uuid.uuid4())
+        # SQL query to insert account record
+        sql = """
+            INSERT INTO account (uuid, email, publisher, locale, license, date)
+            VALUES (%s, %s, %s, %s, %s, NOW())
+        """
+        cursor.execute(sql, (uuid_value, email, publisher, locale, license))
+        db_connection.commit()  # Commit the transaction
+        print("Account record saved successfully!")
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        db_connection.rollback()  # Rollback in case of error
     finally:
-        if conn is not None:
-            conn.close()
-    
+        cursor.close()
+
+
+def generate_license_key(license, publisher):
+    # 3 Monate zum aktuellen Datum hinzufügen
+    expiration_date = (datetime.now() + relativedelta(months=3)).strftime('%Y-%m-%d')
+    license_data = f"{license}|{publisher}|{expiration_date}"
+    try:
+        iv = os.urandom(12)
+        secretKey = SECRET_KEY.encode('utf-8')
+        cipher = AES.new(secretKey, AES.MODE_GCM, iv)
+        ciphertext, tag = cipher.encrypt_and_digest(license_data.encode('utf-8'))
+        encryptedData = iv + ciphertext + tag
+        encryptedHex = binascii.hexlify(encryptedData).decode('utf-8')
+        return encryptedHex
+    except ValueError as error:
+        return ""
+
+
 @app.route('/')
 def hello_world():
-    return render_template_string('''
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <title>Hello from Flask</title>
-    </head>
-    <body>
-        <h1>Hello from Flask!</h1>
-    </body>
-    </html>
-    ''')
+    print("jemand hat hello world geladen")
+    return 'Hello from Flask!'
 
 @app.route('/checkout', methods=['POST'])
 def checkout():
@@ -189,6 +115,9 @@ def checkout():
     else:
         data = request_data['data']
         event_type = request_data['type']
+    data_object = data['object']
+
+    print('event ' + event_type)
 
     if event_type == 'checkout.session.completed':
         license = "FREE"
@@ -206,33 +135,38 @@ def checkout():
         customer_email = session["customer_details"]["email"]
         customer_name = session["customer_details"]["name"]
 
-        # save customer here
-        uuid = str(uuid.uuid4())
-        if registerUser(uuid, customer_name, customer_email, locale, license):
-            print("User successfully registered")
-            send_license_email(customer_email, customer_name, locale, generate_license_key(license, uuid))
-        else:
-            print("Failed to register user")
+        custom_fields = session['custom_fields']
+        publisher_value = next(
+            (field['text']['value'] for field in custom_fields if field['key'] == 'publisher'),
+            None  # Default value if 'publisher' is not found
+        )
+
+        try:
+            save_account_record(customer_email, publisher_value, locale, license)
+        except stripe.error.StripeError as e:
+            print(f"Stripe error: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
+        send_license_email(customer_email, locale, generate_license_key(license, publisher_value), license)
 
     return jsonify({"status": "success"}), 200
 
 
-def send_license_email(email, name, locale, license_key):
-    sender = "japp.olaf@gmail.com"
+def send_license_email(email, locale, license_key ,license):
+    sender = GMAIL_ADDRESS
     recipients = [email]
     if locale == "de":
         msg = MIMEText(f"Vielen Dank für Ihren Kauf!\nIhr Lizenzschlüssel lautet: {license_key}")
-        msg['Subject'] = "Ihr Lizenzschlüssel für NoCodeDesigner"
+        msg['Subject'] = "Ihr Lizenzschlüssel für FreebookDesigner " + license
     else:
-        msg = MIMEText(f"Thank you for the purchase!\nYour license key is: {license_key}")
-        msg['Subject'] = "Your license key for NoCodeDesigner"
+        msg = MIMEText(f"Thank you for the purchase!\nYour license key is: \n\n{license_key}\n\nPlease copy this key and open the FreeBookDesigner -> Settings\nThen paste in the license key and press the Apply button.")
+        msg['Subject'] = "Your license key for the FreebookDesigner " + license
 
 
     msg['From'] = sender
     msg['To'] = ', '.join(recipients)
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-       smtp_server.login(sender, "luws dobw oypv jgvb")
+       smtp_server.login(sender, GMAIL_PWD)
        smtp_server.sendmail(sender, recipients, msg.as_string())
     print("Message sent!")
-
-

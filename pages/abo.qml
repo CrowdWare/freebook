@@ -2,7 +2,7 @@ import FlatSiteBuilder 2.0
 import TextEditor 1.0
 
 Content {
-    title: "abo"
+    title: "Abo"
     menu: "default"
     author: "Olaf"
     keywords: "android,app,no code"
@@ -46,20 +46,14 @@ paymentElement.mount('#payment-element');"
 		&lt;ul style=&quot;margin-bottom: 10px;&quot;&gt;
 		&lt;li&gt;You get a non-commercial license that allows you to publish books under the (CC) license.&lt;br&gt;Books will show (CC) license.&lt;/li&gt;
 		&lt;li&gt;Create EPUB3 (CC License)&lt;/li&gt;
-		&lt;li&gt;Create APK (CC License)&lt;/li&gt;
+		&lt;li&gt;&lt;del&gt;Create APK (CC License)&lt;/del&gt;&lt;/li&gt;
 		&lt;/ul&gt;
-		&lt;stripe-buy-button 
-  			buy-button-id=&quot;buy_btn_1QKFPVLrBLHuJoe9IW47Q8mY&quot;
-  			publishable-key=&quot;pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1&quot;
-			&gt;
-		&lt;/stripe-buy-button&gt;
-
-
 &lt;stripe-buy-button
-  buy-button-id=&quot;buy_btn_1QKPPRQ4PHylGmF0jb4VeSqx&quot;
-  publishable-key=&quot;pk_test_51QKJAlQ4PHylGmF0oHU0GHwU9eGGhSMHNn4ovKGhjTv7tmyu7C2g1no3QOKLPy5OAQWTknu0RYVzN5R8cahkSQJ800dZRlvFsF&quot;
+  buy-button-id=&quot;buy_btn_1QciaLLrBLHuJoe9DJlYZtN4&quot;
+  publishable-key=&quot;pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1&quot;
 &gt;
 &lt;/stripe-buy-button&gt;
+
 	&lt;/div&gt;
 	&lt;div class=&quot;col-md-4 price-table popular&quot;&gt;
 		&lt;h3&gt;STARTER&lt;/h3&gt;
@@ -73,42 +67,26 @@ paymentElement.mount('#payment-element');"
 			&lt;li&gt;EPUB commercial license&lt;/li&gt;
 		&lt;/ul&gt;
 
-		&lt;stripe-buy-button
-  			buy-button-id=&quot;buy_btn_1QKF7tLrBLHuJoe9CAil5taY&quot;
-  			publishable-key=&quot;pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1&quot;
-			&gt;
-		&lt;/stripe-buy-button&gt;
-
 &lt;stripe-buy-button
-  buy-button-id=&quot;buy_btn_1QKJofQ4PHylGmF0ao3nnbyb&quot;
-  publishable-key=&quot;pk_test_51QKJAlQ4PHylGmF0oHU0GHwU9eGGhSMHNn4ovKGhjTv7tmyu7C2g1no3QOKLPy5OAQWTknu0RYVzN5R8cahkSQJ800dZRlvFsF&quot;
+  buy-button-id=&quot;buy_btn_1Qcif0LrBLHuJoe91rfk2NXx&quot;
+  publishable-key=&quot;pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1&quot;
 &gt;
 &lt;/stripe-buy-button&gt;
+
 	&lt;/div&gt;
 	&lt;div class=&quot;col-md-4 price-table popular&quot;&gt;
-		&lt;h3&gt;PRO&lt;/h3&gt;
+		&lt;h3&gt;&lt;del&gt;PRO&lt;/del&gt;&lt;/h3&gt;
 		&lt;p&gt;	
-			€20
+			&lt;del&gt;€20&lt;/del&gt;
 			&lt;span&gt;Monthly&lt;/span&gt;
 		&lt;/p&gt;
 		&lt;ul style=&quot;margin-bottom: 10px;&quot;&gt;
 			&lt;li&gt;You get a commercial license and can sell all books anywhere.&lt;br&gt;(Minimum term of 3 months)&lt;/li&gt;
 			&lt;li&gt;All options from STARTER&lt;/li&gt;
-			&lt;li&gt;APK commercial license&lt;/li&gt;
+			&lt;li&gt;&lt;del&gt;APK commercial license&lt;/del&gt;&lt;/li&gt;
 		&lt;/ul&gt;
-		&lt;stripe-buy-button
-  			buy-button-id=&quot;buy_btn_1QKFIgLrBLHuJoe9h1LaE2cG&quot;
-  			publishable-key=&quot;pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1&quot;
-			&gt;
-		&lt;/stripe-buy-button&gt;
+		&lt;strong&gt;NOT YET AVAILABLE&lt;/strong&gt;
 
-
-
-&lt;stripe-buy-button
-  buy-button-id=&quot;buy_btn_1QKMkwQ4PHylGmF0X3Q7rvgJ&quot;
-  publishable-key=&quot;pk_test_51QKJAlQ4PHylGmF0oHU0GHwU9eGGhSMHNn4ovKGhjTv7tmyu7C2g1no3QOKLPy5OAQWTknu0RYVzN5R8cahkSQJ800dZRlvFsF&quot;
-&gt;
-&lt;/stripe-buy-button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

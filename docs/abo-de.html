@@ -4,7 +4,7 @@
 <!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
 	<head>
 		<meta charset="utf-8" />
-<title>abo</title>
+<title>Abo</title>
 <meta name="keywords" content="android,app,no code" />
 <meta name="description" content="FreeBookDesigner" />
 <meta name="Author" content="Olaf" />
@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.shifting.site/assets/images/happypeople.png" />
 <meta property="og:type" content="image/png" />
 <meta property="og:url" content="https://www.shifting.site/" /> 
-<meta property="og:title" content="abo" />
+<meta property="og:title" content="Abo" />
 <meta property="og:description" content="Die Idee hinter Shift ist die Möglichkeit, mit einer neuen virtuellen Flüssigkeit, die von Menschen hergestellt wird, ein universelles Grundeinkommen zu schaffen." />
 
 <!-- WEB FONTS -->
@@ -77,26 +77,32 @@
 			
 			
 			<li>
-				<a  href="index.html">Home</a>
+				<a  href="index-de.html">Home</a>
 			</li>
 			
 			
 			
 			<li>
-				<a  href="designer.html">Designer</a>
+				<a  href="designer-de.html">Designer</a>
+			</li>
+			
+			
+			
+			<li class="active">
+				<a  href="abo-de.html">Abo</a>
 			</li>
 			
 			
 			
 			<li>
-				<a  href="docu.html">Documentation</a>
+				<a  href="docu.html">Dokumentation</a>
 			</li>
 			
 			
 			
 			<li class="dropdown">
 				<a class="dropdown-toggle" href="#">
-					<img src="assets/images/flags/us.png" width="16" height="11" alt="English" /> English <i class="fa fa-angle-down"></i>
+					<img src="assets/images/flags/de.png" width="16" height="11" alt="Deutsch" /> Deutsch <i class="fa fa-angle-down"></i>
 				</a>
 				<ul class="dropdown-menu">
 					
@@ -129,64 +135,81 @@
 		<!-- WRAPPER -->
 <div id="wrapper">
 		
+
 <section class="container">
 <div class="row">
 <div class="col-md-12">
 <h3><strong>ABO</strong></h3>
 <p class="lead">
-	Du kannst kostenlos mit dem Erstellung von eBooks anfangen.<br>
+	Du kannst kostenlos mit der Erstellung von eBooks anfangen.<br>
 	Deine Bücher werden unter der <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1">Creative Commons Lizenz</a> kostenlos veröffentlicht.<br><br>
 
 	Wenn du deine Bücher verkaufen möchtest kannst du zu einer kommerziellen Lizenz wechseln. Mit STARTER kannst du Bücher im EPUB3 Format erstellen und verkaufen 
 	und mit der PRO Lizenz kannst Du auch Android Apps erstellen und verkaufen. Der Hinweis auf (CC) entfällt bei diesen Lizenzen.<br><br>
 
-	Die Abos für kommerziellen Lizenzen müssen für mindestens 3 Monat gebucht werden, danach kannst Du sie jederzeit kündigen.
+	Die Abos für kommerzielle Lizenzen müssen für mindestens 3 Monat gebucht werden, danach kannst Du sie jederzeit kündigen.
 </p>
 <div class="row pricetable-container">
 	<div class="col-md-4 price-table">
 		<h3>FREE</h3>
 		<p>	
-			0,- €
+			€0
 			<span>Monatlich</span>
 		</p>
 
-		<ul>
+		<ul style="margin-bottom: 10px;">
 		<li>Du bekommst eine nicht-kommerzielle Lizenz, die es Dir erlaubt Bücher unter der (CC) Lizenz zu veröffentlichen.</li>
 		<li>Erstelle EPUB3 (CC Lizenz)</li>
-		<li>Erstelle APK (CC Lizenz)</li>
+		<li><del>Erstelle APK (CC Lizenz)</del></li>
 		</ul>
-		<a href="#" class="btn btn-primary btn-sm">REGISTRIEREN</a>
+		<stripe-buy-button 
+  			buy-button-id="buy_btn_1QKFPVLrBLHuJoe9IW47Q8mY"
+  			publishable-key="pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1"
+			>
+		</stripe-buy-button>
+
+
 	</div>
 	<div class="col-md-4 price-table popular">
 		<h3>STARTER</h3>
 		<p>	
-			10,- €
+			€10
 			<span>Monatlich</span>
 		</p>
-		<ul>
+		<ul style="margin-bottom: 10px;">
 			<li>Du bekommst eine kommerzielle Lizenz und kannst Bücher im EPUB3 Format überall verkaufen.<br>(Mindestlaufzeit 3 Monate)</li>
 			<li>Alle Optionen von FREE</li>
 			<li>EPUB kommerzielle Lizenz</li>
 		</ul>
-		<a href="#" class="btn btn-default btn-sm">KAUFEN</a>
+
+		<stripe-buy-button
+  			buy-button-id="buy_btn_1QKF7tLrBLHuJoe9CAil5taY"
+  			publishable-key="pk_live_51QIlYaLrBLHuJoe9JaECAad04pTIKt0xuqOnOW51YEtbkyB07lLDzeHkmB60noN3qwlTPc25YFpgf0BzwzzKqWxc00Jcs6Gwr1"
+			>
+		</stripe-buy-button>
+
 	</div>
 	<div class="col-md-4 price-table popular">
-		<h3>PRO</h3>
+		<h3><del>PRO</del></h3>
 		<p>	
-			20,- €
+			<del>€20</del>
 			<span>Monatlich</span>
 		</p>
-		<ul>
+		<ul style="margin-bottom: 10px;">
 			<li>Du bekommst eine kommerzielle Lizenz und kannst alle Bücher überall verkaufen.<br>(Mindestlaufzeit 3 Monate)</li>
 			<li>Alle Optionen von STARTER</li>
-			<li>APK kommerzielle Lizenz</li>
+			<li><del>APK kommerzielle Lizenz</del></li>
 		</ul>
-		<a href="#" class="btn btn-default btn-sm">KAUFEN</a>
+		<strong>NOCH NICHT VERFÜGBAR</strong>
+
 	</div>
 </div>
 </div>
 </div>
 </section>
+<script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
 	
 </div>
 <!-- /WRAPPER -->
@@ -209,12 +232,13 @@
 		<div class="container">
 
 			<div class="row">
+				
 				<!-- FOOTER CONTACT INFO -->
 <div class="column col-md-4">
-	<h3>CONTACT</h3>
+	<h3>KONTAKT</h3>
 
 	<p class="contact-desc">
-        If you have any suggestions for improving our software or our website, please let us know.
+		Wenn Du Verbesserungsvorschläge zu unser Software oder unser Webseite hast, dann lass es uns doch bitte wissen.
 	</p>
 	<address class="font-opensans">
 		<ul>
@@ -225,7 +249,7 @@
 				Deutschland
 			</li>
 			<li class="footer-sprite phone">
-				Telegram: @artanidos
+				Telegram: @crowdware
 			</li>
 			<li class="footer-sprite phone">
 				Telefon: +49 3491 6449633
@@ -254,7 +278,7 @@
 <div class="column col-md-4">
 	<h3>POWERED BY</h3>
 	<p class="contact-desc">
-		This Website was powered using the following tools.								
+		Diese Webseite wurde mit Hilfe der folgenden Werkzeuge erstellt.								
 	</p>
 	<address class="font-opensans">
 	<ul>
@@ -269,8 +293,7 @@
 </ul>
 </address>
 </div>
-
-					
+	
 					
 					
 					

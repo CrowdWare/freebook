@@ -5,7 +5,7 @@ import MarkdownEditor 1.0
 import ImageEditor 1.0
 
 Content {
-    title: "NoCode"
+    title: "FreeBook"
     menu: "default"
     author: "Olaf"
     layout: "default"

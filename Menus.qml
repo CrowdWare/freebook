@@ -16,6 +16,12 @@ Menus {
             attributes: ''
         }
         Menuitem {
+            title: 'Abo'
+            url: 'abo.html'
+            icon: ''
+            attributes: ''
+        }
+        Menuitem {
             title: 'Documentation'
             url: 'docu.html'
             icon: ''
@@ -49,6 +55,12 @@ Menus {
         Menuitem {
             title: 'Designer'
             url: 'designer-de.html'
+            icon: ''
+            attributes: ''
+        }
+        Menuitem {
+            title: 'Abo'
+            url: 'abo-de.html'
             icon: ''
             attributes: ''
         }
