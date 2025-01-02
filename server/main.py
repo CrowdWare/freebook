@@ -158,7 +158,7 @@ def send_license_email(email, locale, license_key ,license):
     recipients = [email]
     bcc = [BCC_ADDRESS]
     if locale == "de":
-        msg = MIMEText(f"Vielen Dank für Ihren Kauf!\nIhr Lizenzschlüssel lautet: {license_key}")
+        msg = MIMEText(f"Vielen Dank für Ihren Kauf!\nIhr Lizenzschlüssel lautet: {license_key}\n\nBitte kopieren sie diesen Schlüssel und öffnen den FreeBookDesigner -> Settings\nDann fügen sie den Schlüssel bitte in das Feld LicenseKey ein und klicken den Apply Button.")
         msg['Subject'] = "Ihr Lizenzschlüssel für FreebookDesigner " + license
     else:
         msg = MIMEText(f"Thank you for the purchase!\nYour license key is: \n\n{license_key}\n\nPlease copy this key and open the FreeBookDesigner -> Settings\nThen paste in the license key and press the Apply button.")
