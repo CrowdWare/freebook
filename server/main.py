@@ -40,7 +40,7 @@ from nocode_keys import NOCODE_STARTER_LINK
 from nocode_keys import WEB_HOOK_SECRET
 from nocode_keys import STRIPE_API_KEY
 from nocode_keys import GMAIL_ADDRESS
-
+from nocode_keys import BCC_ADDRESS
 
 app = Flask(__name__)
 stripe.api_key = STRIPE_API_KEY
@@ -156,6 +156,7 @@ def checkout():
 def send_license_email(email, locale, license_key ,license):
     sender = GMAIL_ADDRESS
     recipients = [email]
+    bcc = [BCC_ADDRESS]
     if locale == "de":
         msg = MIMEText(f"Vielen Dank für Ihren Kauf!\nIhr Lizenzschlüssel lautet: {license_key}")
         msg['Subject'] = "Ihr Lizenzschlüssel für FreebookDesigner " + license
@@ -166,6 +167,7 @@ def send_license_email(email, locale, license_key ,license):
 
     msg['From'] = sender
     msg['To'] = ', '.join(recipients)
+    msg['Bcc'] = ', '.join(bcc)
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
        smtp_server.login(sender, GMAIL_PWD)
        smtp_server.sendmail(sender, recipients, msg.as_string())
