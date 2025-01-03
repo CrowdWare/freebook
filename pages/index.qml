@@ -59,17 +59,9 @@ Content {
                     text: "
 ##Vision
 
-The original idea behind FreeBook was to create interactive eBooks that not only integrate videos, sound, and interactions but also incorporate 3D animations for tutorials, for example.
-From this idea, a new way of software development and distribution has emerged.
-We use the technology we are familiar with from websites and embed it into native applications.
-And we do this on every platform.
+The idea behind FreeBook is to create interactive eBooks that not only allow the integration of videos, sound, and interactions but also 3D animations, for example, for tutorials.
 
-###The End of Browser Wars
-
-If you’ve been around as long as our founder, you know the issues that unfortunately still persist today.
-Back then, just like now, there were many different browsers.
-Every major company was eager to make its browser the standard. So we had Netscape Navigator, Internet Explorer, Safari, Firefox, Opera, Chrome, and others.
-So far, none have prevailed, and as a programmer, you feel it, as you had to support all browsers, which often made the source code look quite chaotic."
+From this idea, a desktop software application has emerged, enabling you to easily and quickly create your own book."
                 }
             }
         }
@@ -77,25 +69,11 @@ So far, none have prevailed, and as a programmer, you feel it, as you had to sup
         Row {
 
             Column {
-                span: 6
+                span: 12
 
-                Markdown {
-                    text: "
-#### Here is a simple example 
-```html
-.box {
-  -webkit-border-radius: 10px; /* Chrome and Safari */
-  -moz-border-radius: 10px; /* Firefox */
-  -ms-border-radius: 10px; /* Internet Explorer */
-  border-radius: 10px; /* standard property */
-}
-```"
-                    adminlabel: "Beispiel css"
+                Image {
+                    src: "pitch.gif"
                 }
-            }
-
-            Column {
-                span: 6
             }
         }
     }
@@ -150,15 +128,18 @@ So far, none have prevailed, and as a programmer, you feel it, as you had to sup
                 span: 6
 
                 Markdown {
-                    text: "##Easy to Use
+                    text: "## Easy to Use
 
-Currently, the full range of features is not yet available, but you can already create an app for Android in a simple way,
-without any programming knowledge, without having to compile the app, and without the hassle of publishing the app in the Play Store.
+With Markdown, you can easily write and format texts.
 
-Just write a bit of SML (**S**imple **M**arkup **L**anguage), preview the app, try it out interactively, and publish it.  
-Later there will also be a drag-and-drop designer, if you are bored to hack in text.
+With just one click, you can create your own eBook, which you can publish on platforms like Amazon (KDP) and Tolino Media.
 
-The app is instantly available online, and you and anyone else to whom you send the corresponding link can admire and work with this app using NoCodeBrowser."
+## Your Own App
+
+If you want a modern eBook featuring videos, YouTube links, interactions, buttons, clickable images, and 3D animations, you can create it effortlessly using SML (Simple Markup Language). Preview the app, test it interactively, and publish it.
+Later, a drag-and-drop designer will also be available if you prefer not to type text manually.
+
+The app is instantly available online, and anyone with the appropriate link can read it using the FreeBookReader."
                 }
             }
         }
@@ -197,8 +178,7 @@ The app is instantly available online, and you and anyone else to whom you send 
                 Markdown {
                     text: "
 # Roadmap
-- 2024 Launch of the FreeBookDesigner for MacOS, Windows, Linux, and Web
-- 2024 Launch of the FreeBookReader for Android
+- 2025 Launch of the FreeBookDesigner for Windows and Linux
 - 2025 Launch of the FreeBookReader for iOS
 
 ## Feedback
@@ -228,9 +208,9 @@ Features that are most requested by customers will be prioritized for developmen
 		&lt;div class=&quot;col-md-6&quot;&gt;&lt;/div&gt;
 		&lt;div class=&quot;col-md-6&quot;&gt;
 			&lt;div class=&quot;white-row&quot;&gt;
-				&lt;h4&gt;We need &lt;strong&gt;YOU&lt;/strong&gt;&lt;/h4&gt;
+				&lt;h4&gt;The World needs &lt;strong&gt;Your Books&lt;/strong&gt;&lt;/h4&gt;
 				&lt;p class=&quot;lead&quot;&gt;
-					to bring something new to the world!
+					so more people can stay informed.
 				 
 				&lt;/p&gt;
 			&lt;/div&gt;
