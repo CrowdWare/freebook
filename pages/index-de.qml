@@ -135,18 +135,65 @@ Du kannst mittels Markdown ganz einfach Texte schreiben und formatieren.
 Mit einem Klick erstellst Du Dein eigenes Ebook, welches Du u.a. auf Amazon (KDP) und Tolino Media anbieten kannst.
 
 
-## Eigene App
-Willst Du ein modernes Ebook inklusive Videos, YouTube Video, Interaktion, Buttons, klickbare Bilder und 3D Animationen, dann kannst Du dies auf einfache Weise mittels
-SML (**S**imple **M**arkup **L**anguage) schreiben, die App in der Vorschau begutachten, interaktiv ausprobieren und veröffentlichen.  
-Später gibt es dann auch einen Drag and Drop Designer, wenn Du keine Lust haben solltest, Text einzugeben.
-
-Die App ist sofort online verfügbar und Du und jeder andere, den du einen entsprechenden Link sendest, kann diese App mit FreeBookReader lesen. "
+"
                 }
             }
         }
     }
 
     Section {
+
+        Row {
+
+            Column {
+                span: 8
+
+                Markdown {
+                    text: "
+&lt;h2 style=&quot;margin-top: 1.5rem;&quot;&gt;
+FreeBookReader
+&lt;/h2&gt;
+Willst Du ein modernes Ebook inklusive Videos, YouTube Video, Interaktion, Buttons, klickbare Bilder und 3D Animationen, dann kannst Du dies auf einfache Weise mittels
+SML (**S**imple **M**arkup **L**anguage) schreiben, die App in der Vorschau begutachten, interaktiv ausprobieren und veröffentlichen.  
+Später gibt es dann auch einen Drag and Drop Designer, wenn Du keine Lust haben solltest, Text einzugeben.
+
+Die App ist sofort online verfügbar und Du und jeder andere, den du einen entsprechenden Link sendest, kann diese App mit dem FreeBookReader lesen. "
+                }
+            }
+
+            Column {
+                span: 4
+
+                Image {
+                    src: "preview.png"
+                    animation: "slideInRight"
+                    animation_type: "Sliding Entrances"
+                }
+            }
+        }
+    }
+
+    Section {
+
+        Row {
+
+            Column {
+                span: 12
+
+                Text {
+                    text: "&lt;h2 style=&quot;margin-top: 1.5 rem;&quot;&gt;
+Anleitung
+&lt;/h2&gt;
+&lt;p&gt;
+Hier eine kurze Anleitung, wie ich ein neues Buch schreiben könnt.
+&lt;/p&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/m2pAFFjRfyU?si=MvFSLgxIKKc-3fhN&quot; 
+title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; 
+referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;"
+                    adminlabel: "Anleitung"
+                }
+            }
+        }
 
         Row {
 
@@ -225,8 +272,5 @@ Features, die vo den meisten Kunden gewünscht werden, werden wir prioritär beh
                 }
             }
         }
-    }
-
-    Section {
     }
 }

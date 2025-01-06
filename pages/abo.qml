@@ -31,8 +31,10 @@ paymentElement.mount('#payment-element');"
 	You can start creating eBooks for free.&lt;br&gt;
 	Your books will be published for free under the &lt;a target=&quot;_blank&quot; href=&quot;https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1&quot;&gt;Creative Commons License&lt;/a&gt;.&lt;br&gt;&lt;br&gt;
 
-	If you want to sell your books, you can switch to a commercial license. With STARTER, you can create and sell books in EPUB3 format, and with the PRO license, you can also create and sell Android apps. The mention of (CC) does not apply with these licenses.&lt;br&gt;&lt;br&gt;
-
+	If you want to sell your books, you can switch to a commercial license. With STARTER, you can create and sell books in EPUB3 format, and with the PRO license, 
+	you can also create and sell books in the FreeBookReader (FBR, Android app). 
+	The mention of (CC) does not apply with these licenses.&lt;br&gt;&lt;br&gt;
+ 
 	Commercial license subscriptions must be booked for at least 3 months; after that, you can cancel at any time.
 &lt;/p&gt;
 &lt;div class=&quot;row pricetable-container&quot;&gt;
@@ -46,7 +48,7 @@ paymentElement.mount('#payment-element');"
 		&lt;ul style=&quot;margin-bottom: 10px;&quot;&gt;
 		&lt;li&gt;You get a non-commercial license that allows you to publish books under the (CC) license.&lt;br&gt;Books will show (CC) license.&lt;/li&gt;
 		&lt;li&gt;Create EPUB3 (CC License)&lt;/li&gt;
-		&lt;li&gt;&lt;del&gt;Create APK (CC License)&lt;/del&gt;&lt;/li&gt;
+		&lt;li&gt;Create FBR (CC License)&lt;/li&gt;
 		&lt;/ul&gt;
 &lt;stripe-buy-button
   buy-button-id=&quot;buy_btn_1QciaLLrBLHuJoe9DJlYZtN4&quot;
@@ -83,7 +85,7 @@ paymentElement.mount('#payment-element');"
 		&lt;ul style=&quot;margin-bottom: 10px;&quot;&gt;
 			&lt;li&gt;You get a commercial license and can sell all books anywhere.&lt;br&gt;(Minimum term of 3 months)&lt;/li&gt;
 			&lt;li&gt;All options from STARTER&lt;/li&gt;
-			&lt;li&gt;&lt;del&gt;APK commercial license&lt;/del&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;del&gt;FBR commercial license&lt;/del&gt;&lt;/li&gt;
 		&lt;/ul&gt;
 		&lt;strong&gt;NOT YET AVAILABLE&lt;/strong&gt;
 

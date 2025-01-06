@@ -33,7 +33,7 @@ paymentElement.mount('#payment-element');"
 	Deine Bücher werden unter der &lt;a target=&quot;_blank&quot; href=&quot;https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1&quot;&gt;Creative Commons Lizenz&lt;/a&gt; kostenlos veröffentlicht.&lt;br&gt;&lt;br&gt;
 
 	Wenn du deine Bücher verkaufen möchtest kannst du zu einer kommerziellen Lizenz wechseln. Mit STARTER kannst du Bücher im EPUB3 Format erstellen und verkaufen 
-	und mit der PRO Lizenz kannst Du auch Android Apps erstellen und verkaufen. Der Hinweis auf (CC) entfällt bei diesen Lizenzen.&lt;br&gt;&lt;br&gt;
+	und mit der PRO Lizenz kannst Du sie im FreeBookReader (FBR, Android App) veröffentlichen und verkaufen. Der Hinweis auf (CC) entfällt bei diesen Lizenzen.&lt;br&gt;&lt;br&gt;
 
 	Die Abos für kommerzielle Lizenzen müssen für mindestens 3 Monat gebucht werden, danach kannst Du sie jederzeit kündigen.
 &lt;/p&gt;
@@ -48,7 +48,7 @@ paymentElement.mount('#payment-element');"
 		&lt;ul style=&quot;margin-bottom: 10px;&quot;&gt;
 		&lt;li&gt;Du bekommst eine nicht-kommerzielle Lizenz, die es Dir erlaubt Bücher unter der (CC) Lizenz zu veröffentlichen.&lt;/li&gt;
 		&lt;li&gt;Erstelle EPUB3 (CC Lizenz)&lt;/li&gt;
-		&lt;li&gt;&lt;del&gt;Erstelle APK (CC Lizenz)&lt;/del&gt;&lt;/li&gt;
+		&lt;li&gt;Erstelle FBR (CC Lizenz)&lt;/li&gt;
 		&lt;/ul&gt;
 		&lt;stripe-buy-button 
   			buy-button-id=&quot;buy_btn_1QKFPVLrBLHuJoe9IW47Q8mY&quot;
@@ -86,7 +86,7 @@ paymentElement.mount('#payment-element');"
 		&lt;ul style=&quot;margin-bottom: 10px;&quot;&gt;
 			&lt;li&gt;Du bekommst eine kommerzielle Lizenz und kannst alle Bücher überall verkaufen.&lt;br&gt;(Mindestlaufzeit 3 Monate)&lt;/li&gt;
 			&lt;li&gt;Alle Optionen von STARTER&lt;/li&gt;
-			&lt;li&gt;&lt;del&gt;APK kommerzielle Lizenz&lt;/del&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;del&gt;FBR kommerzielle Lizenz&lt;/del&gt;&lt;/li&gt;
 		&lt;/ul&gt;
 		&lt;strong&gt;NOCH NICHT VERFÜGBAR&lt;/strong&gt;
 

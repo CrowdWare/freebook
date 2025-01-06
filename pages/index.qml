@@ -134,12 +134,61 @@ With Markdown, you can easily write and format texts.
 
 With just one click, you can create your own eBook, which you can publish on platforms like Amazon (KDP) and Tolino Media.
 
-## Your Own App
+"
+                }
+            }
+        }
+    }
 
-If you want a modern eBook featuring videos, YouTube links, interactions, buttons, clickable images, and 3D animations, you can create it effortlessly using SML (Simple Markup Language). Preview the app, test it interactively, and publish it.
+    Section {
+
+        Row {
+
+            Column {
+                span: 8
+
+                Markdown {
+                    text: "&lt;h2 style=&quot;margin-top: 1.5rem;&quot;&gt;
+FreeBookReader
+&lt;/h2&gt;
+If you want a modern eBook featuring videos, YouTube links, interactions, buttons, clickable images, and 3D animations, you can create it effortlessly using SML (Simple Markup Language). 
+Preview the app, test it interactively, and publish it.
 Later, a drag-and-drop designer will also be available if you prefer not to type text manually.
 
-The app is instantly available online, and anyone with the appropriate link can read it using the FreeBookReader."
+The app is instantly available online, and anyone with the appropriate link can read it using the FreeBookReader.
+"
+                }
+            }
+
+            Column {
+                span: 4
+
+                Image {
+                    src: "preview.png"
+                    animation: "slideInRight"
+                    animation_type: "Sliding Entrances"
+                }
+            }
+        }
+    }
+
+    Section {
+
+        Row {
+
+            Column {
+                span: 12
+
+                Text {
+                    text: "&lt;h2 style=&quot;margin-top: 1.5 rem;&quot;&gt;
+Introduction
+&lt;/h2&gt;
+&lt;p&gt;
+Here is a short introducion who to create a new ebook (english version will follow). 
+&lt;/p&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/m2pAFFjRfyU?si=MvFSLgxIKKc-3fhN&quot; 
+title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; 
+referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;"
                 }
             }
         }
