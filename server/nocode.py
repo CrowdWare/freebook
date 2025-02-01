@@ -36,6 +36,70 @@ from nocode_keys import BCC_ADDRESS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
+
+def get_customer_uuid_if_valid(email, password):
+    """
+    Überprüft, ob der Kunde mit der gegebenen E-Mail existiert und das Passwort korrekt ist.
+    Gibt die UUID zurück, wenn die Anmeldung erfolgreich ist, sonst None.
+    """
+    try:
+        db_connection = mysql.connector.connect(
+            host="artanidos.mysql.pythonanywhere-services.com",
+            user=NOCODE_DB_USER,
+            password=NOCODE_DB_PWD,
+            database=NOCODE_DATABASE
+        )
+        cursor = db_connection.cursor(dictionary=True)
+
+        sql = "SELECT uuid, pwd FROM customer WHERE EMAIL = %s"
+        cursor.execute(sql, (email,))
+        customer = cursor.fetchone()
+
+        if customer and verify_password(password, customer["pwd"]):
+            return customer["uuid"]  # Login erfolgreich, UUID zurückgeben
+        else:
+            return None  # Kunde existiert nicht oder falsches Passwort
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return None
+
+    finally:
+        if cursor:
+            cursor.close()
+        if db_connection:
+            db_connection.close()
+
+def verify_password(pwd, stored_hashed_password):
+    """
+    Prüft, ob das eingegebene Passwort (gehasht) mit dem gespeicherten Hash übereinstimmt.
+    Annahme: Passwörter sind mit SHA-256 gehasht (oder besser bcrypt/argon2 nutzen!).
+    """
+
+    return bcrypt.checkpw(pwd.encode('utf-8'), stored_hashed_password.encode('utf-8'))
+
+def check_customer_exists(email):
+    try:
+        db_connection = mysql.connector.connect(
+            host="artanidos.mysql.pythonanywhere-services.com",
+            user=NOCODE_DB_USER,
+            password=NOCODE_DB_PWD,
+            database=NOCODE_DATABASE
+        )
+        cursor = db_connection.cursor()
+        sql = "SELECT COUNT(*) FROM customer WHERE EMAIL = %s"
+        cursor.execute(sql, (email,))
+        result = cursor.fetchone()
+        return result[0] > 0
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if db_connection:
+            db_connection.close()
+
 def save_customer(name, email, pwd, date_of_birth):
     print("About to save")
     try:
@@ -72,18 +136,38 @@ def home():
     return "Welcome to nocode"
 
 
-@app.route('/test')
-def test():
-    print("test has been called")
-    return "<div id='wrapper'><header id='page-title'><div class='container'><h1>Sacred Sexuality</h1><ul class='breadcrumb'><li><a href='../index_en.html'>Home</a></li><li class='active'>Sacred Sexuality</li></ul></div></header><h2>Dynamic HTML</h2><p>direkt from PythonAnywhere</p></div></div>"
+@app.route('/login', methods=['GET'])
+def loginpage():
+    response = make_response(render_template('login.html'))
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 @app.route('/login', methods=['POST'])
 def login():
-    pass
+    email = request.form.get("email")
+    pwd = request.form.get("pwd")
+    locale = request.form.get("locale")
+
+    if not email or not pwd:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    customer_uuid = get_customer_uuid_if_valid(email, pwd)
+
+    if customer_uuid:
+        return jsonify({"message": "Login successful", "uuid": customer_uuid}), 200
+    else:
+        return jsonify({"error": "Invalid email or password"}), 401
+
+@app.route('/course-page', methods=['GET'])
+def coursepage():
+    return "<h2>Login successful</h2><p>TODO</p>"
 
 @app.route('/confirmation-page', methods=['GET'])
 def confirmationpage():
-    return "<h2>Registration successful</h2><p>you can now <a href='#'>login</a> normally.</p>"
+    return "<h2>Registration successful</h2><p>Thank you for your registration, you can now <a id='login-link' href='#'>login</a> normally.</p>"
 
 @app.route('/getverificationcode', methods=['POST'])
 def getverificationcode():
@@ -107,7 +191,6 @@ def getverificationcode():
     return jsonify({"message": "Email sent successful", "email" : email}), 200
 
 
-
 @app.route('/register', methods=['GET'])
 def registerpage():
     response = make_response(render_template('register.html'))
@@ -116,10 +199,6 @@ def registerpage():
     response.headers["Expires"] = "0"
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
-
-# validation needed
-# check if email already exists
-# check code if it fits to name and email
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -133,6 +212,19 @@ def register():
     if not name or not email or not code or not pwd or not date_of_birth:
         print("not valid")
         return jsonify({"error": "All fields (name, email, code, pwd, dob) are required"}), 400
+
+    combined_string = name + email
+    hash_object = hashlib.sha256(combined_string.encode())  # Create SHA-256 hash
+    hash_hex = hash_object.hexdigest()  # Get the hexadecimal representation
+    hash_int = int(hash_hex, 16)  # Convert hex to an integer
+    chcode = str(hash_int % 1000000).zfill(6)
+    if chcode != code :
+        print("code does not fit to name and email")
+        return jsonify({"error": "The verification code does not fit to the name and email address."}), 400
+
+    # check if email already exists
+    if check_customer_exists(email):
+        return jsonify({"error": "A customer with this email address is already registered."}), 400
 
     try:
         save_customer(name, email, pwd, date_of_birth)
