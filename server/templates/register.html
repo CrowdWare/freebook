@@ -1,0 +1,147 @@
+
+
+<script>
+    function validateEmail() {
+        var email = document.getElementById("email").value;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var button = document.getElementById("verify-btn");
+
+        if (emailRegex.test(email)) {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    }
+
+    function validatePassword() {
+        var password = document.getElementById("pwd").value;
+        var passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        var pwdField = document.getElementById("pwd");
+
+        if (!passwordRegex.test(password)) {
+            pwdField.setCustomValidity("Password must be at least 8 characters long, include 1 uppercase letter, 1 number, and 1 special character.");
+        } else {
+            pwdField.setCustomValidity("");
+        }
+    }
+
+    function validateDOB() {
+        var dob = document.getElementById("dob").value;
+        var dobField = document.getElementById("dob");
+        var today = new Date();
+        var birthDate = new Date(dob);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        if (age < 18) {
+            dobField.setCustomValidity("You must be at least 18 years old.");
+        } else {
+            dobField.setCustomValidity("");
+        }
+    }
+
+    function sendVerificationCode(website) {
+        const name = document.getElementById('name').value;
+        if (!name) {
+            alert('Please enter a name first.');
+            return;
+        }
+        const email = document.getElementById('email').value;
+        if (!email) {
+            alert('Please enter an email address first.');
+            return;
+        }
+
+        fetch('https://artanidos.pythonanywhere.com/nocode/getverificationcode', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                locale: 'en',
+                website: website
+            })
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message || 'Verification code sent!'))
+        .catch(error => alert('Error sending verification code.'));
+    }
+</script>
+
+
+
+<section class="container">
+<div class="row">
+<div class="col-md-3">
+</div>
+<div class="col-md-6">
+
+<div class="white-row">
+<h2 class="text-center">Register</h2>
+<p>
+    Register yourself to be able to use our webinar about Sacred Sexuality.
+    Please enter your name and email address and press the button to reveive a verification code via email.<br>
+    You should also be older than 17 years old to be able to attend to the course.
+    We keep your data private.
+</p>
+
+<form id="register-form" action="https://artanidos.pythonanywhere.com/nocode/register" method="POST">
+<input type="hidden" id="locale" name="locale" value="en">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" name="email" required onkeyup="validateEmail()">
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="code">Verification Code:</label>
+    <div class="input-group">
+        <button type="button" class="btn btn-primary" id="verify-btn" onclick="sendVerificationCode('Art of Touch')" disabled>
+            Get Verification Code
+        </button>
+        <input type="text" class="form-control ml-2" id="code" name="code" required>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd" name="pwd" required onkeyup="validatePassword()">
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" class="form-control" id="dob" name="dob" required onchange="validateDOB()">
+        </div>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary btn-block mt-3">Register</button>
+<p class="text-center mt-3">
+    Already have an account? <a href="login.html">Login here</a>
+</p>
+</form>
+</div>
+
+<div class="col-md-3">
+</div>
+</div>
+</section>

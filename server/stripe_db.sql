@@ -1,4 +1,4 @@
- DROP TABLE account;
+
  CREATE TABLE account(
     uuid CHAR(52) NOT NULL PRIMARY KEY, 
     email varchar(250) NOT NULL, 
