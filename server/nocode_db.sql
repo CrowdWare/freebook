@@ -1,3 +1,8 @@
+CREATE TABLE session_data (
+    session_id VARCHAR(128) PRIMARY KEY,
+    user_uuid VARCHAR(36) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE customer(
     uuid CHAR(52) NOT NULL PRIMARY KEY, 
